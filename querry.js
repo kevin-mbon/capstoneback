@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Contact = require('./collection/contact');
 const bodyParser = require('body-parser');
+const { append } = require('express/lib/response');
 
 router.post('/querry', async (req, res) => {
 
@@ -15,6 +16,27 @@ router.post('/querry', async (req, res) => {
     }catch(err){
         res.status(400).send(err);
     }
+});
+
+router.get('/querry', (req, res) => {
+    Contact.find()
+    .then((result) => {
+        res.send(result);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+});
+
+router.delete('/querry/:id', (req, res) => {
+    const id = req.params.id;
+    Contact.findByIdAndDelete(id)
+    .then((result) => {
+        res.send('query deleted successfully')
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 });
 
 module.exports = router;
