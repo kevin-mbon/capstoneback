@@ -12,11 +12,13 @@ dotenv.config();
 const port = process.env.PORT || 5000;
 
 const authRoute = require('./authentication');
+const querryRoute = require('./querry');
 
 // middle wares
 app.use(bodyParser.json()); 
 app.use('/api/user', authRoute);
 app.use('/api/posts', postRoute);
+app.use('/api', querryRoute)
 
 
 //connecting to db
